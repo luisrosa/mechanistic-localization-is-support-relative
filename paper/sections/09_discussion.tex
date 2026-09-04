@@ -1,0 +1,36 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Typing localization claims}
+
+A statement that behavior $\Phi$ is localized to receiver family $K$ has several arguments. For a source-generated support, the exact claim is
+\[
+K\in\Rcal_{\Phi,q}^{\theta,C}.
+\]
+It specifies the ambient network $\theta$, the represented cut $q$, the source regime $C$ that generates the supported domain, the phenomenon $\Phi$, and the declared receiver decomposition from which $K$ is drawn. At a fixed cut, the same definition applies on an arbitrary analysis support $S\subseteq X_q$ by restricting the access maps and phenomenon to $S$.
+
+The domain enters the truth conditions of the claim. \Cref{thm:realization-monotonicity} gives a directional comparison when two supports are nested. \Cref{sec:context-comparison} shows why nonnested contexts require separate internal-overlap and cross-support compatibility checks. These statements distinguish a change in the ambient computation from a change in the state pairs that the localization must separate.
+
+\subsection{Prompt-local analyses and counterfactual domains}
+
+A singleton source regime in a deterministic network generates a singleton support at every reachable cut. Every exact sufficiency question on that literal support is then trivial: all maps are constant on a one-point domain. Prompt-local attribution, ablation, corruption, and patching methods become nontrivial by introducing additional states against which the prompt is compared.
+
+Those baseline, corrupted, patched, or counterfactual states are therefore part of the effective domain of the mechanistic claim. Two analyses can begin from the same prompt and parameter setting while testing localization on different analysis supports. The distinction is formal rather than terminological: different supports contain different state pairs, and the realization criterion is evaluated on those pairs.
+
+\subsection{Scope and limitations}
+
+The theory is exact and set-theoretic. A probabilistic extension would need to distinguish exact support from high-probability regions and distribution-weighted approximation. Approximate realization would replace exact kernel inclusion with a quantitative condition on variation of the phenomenon within access fibers.
+
+The access decomposition is declared by the analysis. Neuron-, head-, edge-, feature-, and mediator-level studies expose different internal states, and the present results are conditional on that choice.
+
+The network is represented as a finite sequence of deterministic state cuts. Recurrent systems, stochastic computation, adaptive tool use, and training-time dynamics require a more general process index.
+
+Exact interface realization is also weaker than causal necessity, counterfactual control, algorithmic abstraction, or equivalence between different presentation languages. Those questions require additional structure after the supported domain, phenomenon, and internal access have been specified.
+
+\section{Conclusion}
+
+A fixed neural network specifies ambient maps, but a mechanistic-localization claim is evaluated on a selected domain of internal states. The support belongs in the mathematical type of the claim together with the phenomenon and declared internal access.
+
+With those arguments explicit, exact realization is a factorization problem on the supported domain. Restricting support removes state pairs from the comparison and can therefore enlarge the feasible localization family, lower its minimum receiver count, or change which families are minimal without changing the weights. Across nonnested contexts, source overlap can miss shared internal states, while separate local realizations extend to the union exactly when cross-support access collisions are phenomenon-consistent.
+
+Mechanistic localizations should therefore be compared together with the domains on which they are asserted. Reporting only the network and circuit identity can conflate changes in ambient computation with changes in which internal distinctions the analysis requires the circuit to preserve.
