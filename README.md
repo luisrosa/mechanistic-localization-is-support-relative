@@ -38,9 +38,9 @@ mechanistic-localization claim
 
 For source-generated analyses, a prompt or input regime `C` induces the reachable support
 
-$$
-S_q^{\theta,C}=A_q^\theta(C),
-$$
+```math
+S_q^{\theta,C}=A_q^\theta(C).
+```
 
 where $A_q^\theta$ is the prefix map to cut $q$. Interventions can instead specify an analysis support directly at an internal cut.
 
@@ -50,27 +50,27 @@ The central point is simple: **changing the supported state set can change the e
 
 Fix an analysis support $S$, a phenomenon
 
-$$
+```math
 \Phi:S\to Y_\Phi,
-$$
+```
 
 and a declared internal access
 
-$$
+```math
 L:S\twoheadrightarrow U.
-$$
+```
 
 The access exactly realizes the phenomenon when there exists some $h$ with
 
-$$
+```math
 \Phi=hL.
-$$
+```
 
 The paper proves the equivalent kernel criterion
 
-$$
+```math
 \boxed{\Phi=hL\quad\Longleftrightarrow\quad \ker L\subseteq\ker\Phi.}
-$$
+```
 
 So exact localization is governed by which supported state pairs the access still identifies. If two supported states collide under $L$, they must also agree under the phenomenon.
 
@@ -80,11 +80,11 @@ This is an interface-sufficiency statement. It does not by itself assert causal 
 
 Let
 
-$$
+```math
 x=(x_1,x_2)\in\mathbb R^2,
 \qquad
 \Phi(x)=x_1+x_2,
-$$
+```
 
 with accesses $L_1(x)=x_1$ and $L_2(x)=x_2$.
 
@@ -98,22 +98,22 @@ Nothing about the ambient formula or weights changed. The supported relations am
 
 At a network cut, the implementation supplies receiver maps
 
-$$
+```math
 X_q\xrightarrow{Q_{q,j}^\theta} Z_{q,j}
 \xrightarrow{G_{q,j}^\theta}A_{q+1,j},
 \qquad
 F_{q,j}^\theta=G_{q,j}^\theta Q_{q,j}^\theta.
-$$
+```
 
 The theory treats the $Q_{q,j}^\theta$ as declared boundary accesses: the actual interfaces through which downstream receivers obtain information. They are not arbitrary post-hoc factorizations chosen only to make a theorem go through.
 
 Restricting a receiver to the support gives the receiver indistinguishability relation
 
-$$
+```math
 D_{q,j}^{\theta,C}
 =
 \ker\!\left(Q_{q,j}^\theta\big|_{S_q^{\theta,C}}\right).
-$$
+```
 
 This makes support-relative receiver structure an explicit object of the analysis.
 
@@ -123,11 +123,11 @@ For a coordinate subset $K$ at a cut, the paper defines $K$ to be sufficient for
 
 Equivalently,
 
-$$
+```math
 \ker(\pi_K|_S)\subseteq\ker(Q_j|_S).
-$$
+```
 
-Inclusion-minimal sufficient coordinate sets form $\operatorname{MinSupp}$. A coordinate is directly operative exactly when it belongs to every minimal sufficient coordinate set. This separates three different notions that are easy to conflate:
+Inclusion-minimal sufficient coordinate sets form $\mathrm{MinSupp}$. A coordinate is directly operative exactly when it belongs to every minimal sufficient coordinate set. This separates three different notions that are easy to conflate:
 
 - appearing in some minimal description,
 - appearing in every minimal description,
@@ -139,23 +139,23 @@ The last two coincide under the paper's finite-coordinate setup.
 
 A phenomenon need not localize to one receiver. For a receiver family $K$, define the joint access by collecting the receiver outputs. Its kernel is
 
-$$
+```math
 \ker Q_{q,K}=\bigcap_{j\in K} D_{q,j}.
-$$
+```
 
 The family realizes the phenomenon exactly when
 
-$$
+```math
 \bigcap_{j\in K}D_{q,j}\subseteq D_\Phi.
-$$
+```
 
 The realizing-family set is upward closed, and the paper defines the exact localization order
 
-$$
+```math
 d_{\Phi,q}^{\theta,C}
 =
-\min\{|K|:K\text{ realizes }\Phi\},
-$$
+\min\{\,|K|:K\ \mathrm{realizes}\ \Phi\,\},
+```
 
 with the stated conventions for constant or unrealizable phenomena.
 
@@ -165,19 +165,19 @@ There is also a pair-cover form: each receiver separates some phenomenon-disting
 
 For nested supports $C\subseteq C'$, every receiver family that realizes the phenomenon on the larger support also realizes it on the smaller support:
 
-$$
+```math
 \mathcal R_{\Phi,q}^{\theta,C'}
 \subseteq
 \mathcal R_{\Phi,q}^{\theta,C}.
-$$
+```
 
 Therefore
 
-$$
+```math
 d_{\Phi,q}^{\theta,C}
 \le
  d_{\Phi,q}^{\theta,C'}.
-$$
+```
 
 A narrower support cannot increase the exact localization order. It can, however,
 
@@ -196,11 +196,11 @@ Nonnested supports require additional care.
 
 For source regimes $C$ and $D$,
 
-$$
+```math
 S_q^{\theta,C\cap D}
 \subseteq
 S_q^{\theta,C}\cap S_q^{\theta,D}.
-$$
+```
 
 The inclusion can be strict when the prefix map is noninjective. Two disjoint source classes can therefore reach the same represented internal state.
 
@@ -210,11 +210,11 @@ Suppose the same access $L$ realizes the same phenomenon $\Phi$ separately on su
 
 The local realizations extend to the union exactly when every cross-support collision is phenomenon-consistent:
 
-$$
+```math
 x\in S_1,\ y\in S_2,\ L(x)=L(y)
 \quad\Longrightarrow\quad
 \Phi(x)=\Phi(y).
-$$
+```
 
 The obstruction is not failure on either context individually. It is a new collision created only when the contexts are compared together.
 
