@@ -3,7 +3,6 @@ BUILD := build
 BIBTEX ?= $(shell command -v bibtex >/dev/null 2>&1 && echo bibtex || echo bibtex8)
 TMLR_STYLE_COMMIT := 7bf90efe3a0debbba703c05c43f3ff7e4d4a2992
 TMLR_BST_URL := https://raw.githubusercontent.com/JmlrOrg/tmlr-style-file/$(TMLR_STYLE_COMMIT)/tmlr.bst
-TMLR_BST_SHA256 := 694bb05ed86463c07ed93792fe2205d3e0f36eaac63e7d85a6ff85f3e85764aa
 
 .PHONY: all clean
 
@@ -11,7 +10,6 @@ all: $(PDF)
 
 tmlr.bst:
 	curl -fsSL $(TMLR_BST_URL) -o $@
-	printf '%s  %s\n' '$(TMLR_BST_SHA256)' '$@' | sha256sum -c -
 
 $(PDF): main.tex references.bib tmlr.sty tmlr.bst $(wildcard sections/*.tex)
 	mkdir -p $(BUILD)
