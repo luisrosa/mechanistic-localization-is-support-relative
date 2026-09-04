@@ -10,11 +10,13 @@
 
 ## Source provenance
 
-The files under `paper/` were copied from the author-identified arXiv submission package supplied for this release, excluding macOS `__MACOSX` archive metadata. No scientific section was rewritten while constructing the public repository.
+The author-identified wrapper, bibliography, scientific section files, and `tmlr.sty` under `paper/` were copied from the arXiv submission package supplied for this release, excluding macOS `__MACOSX` archive metadata. No scientific section was rewritten while constructing the public repository.
+
+The `tmlr.bst` file from that package is not vendored in the public repository. The build downloads it from the official `JmlrOrg/tmlr-style-file` repository at commit `7bf90efe3a0debbba703c05c43f3ff7e4d4a2992` and verifies SHA-256 `694bb05ed86463c07ed93792fe2205d3e0f36eaac63e7d85a6ff85f3e85764aa`. The pinned upstream file and the submission-package file have the same Git blob SHA, `310ed3e74455269ad97d0b30639851af72cec965`.
 
 The anonymous TMLR review package is maintained separately in the private mechanistic-interpretability repository. Review-administration files and the anonymous submission ZIP are intentionally not duplicated here.
 
-SHA-256 hashes for the v1.0 paper source are recorded in [`releases/v1.0/SOURCE_SHA256SUMS.txt`](releases/v1.0/SOURCE_SHA256SUMS.txt).
+SHA-256 hashes for the v1.0 preprint package are recorded in [`releases/v1.0/SOURCE_SHA256SUMS.txt`](releases/v1.0/SOURCE_SHA256SUMS.txt).
 
 ## Executable finite checks
 
@@ -43,7 +45,7 @@ finite examples: PASS
 
 ## Build validation
 
-The manuscript is compiled from `paper/main.tex` with the TMLR preprint style distributed in the arXiv source package.
+The manuscript is compiled from `paper/main.tex` with the TMLR preprint style used by the arXiv source package and the pinned, checksum-verified bibliography style described above.
 
 Run:
 
@@ -57,7 +59,9 @@ The target PDF is:
 paper/mechanistic_localization_is_support_relative.pdf
 ```
 
-GitHub Actions runs both the finite checks and a clean LaTeX build. CI rejects compilation failures and unresolved references/citations detected in the final log.
+Before repository publication, the same source was also built locally from the supplied preprint package. The finite regression suite returned `finite examples: PASS`; the identified manuscript compiled to 16 pages; and the final LaTeX log contained no unresolved references or citations.
+
+GitHub Actions independently runs the finite checks and a clean LaTeX build. CI rejects compilation failures and unresolved references/citations detected in the final log. On `main`, a separate publishing workflow rebuilds the identified manuscript and commits the generated PDF when its bytes change.
 
 ## Release invariants
 
@@ -67,7 +71,7 @@ The v1.0 public release is intended to preserve the following invariants:
 - private TMLR review administration is not published here;
 - `CLAIMS.md` does not broaden the manuscript beyond exact interface realization;
 - the finite regression script remains executable without external Python dependencies;
-- the compiled public PDF is produced from the checked-in source;
+- the public PDF is generated from the repository manuscript source and pinned TMLR bibliography dependency;
 - changes to theorem statements, examples, references, or scientific prose require a new provenance record rather than silent replacement.
 
 ## What validation does not establish
