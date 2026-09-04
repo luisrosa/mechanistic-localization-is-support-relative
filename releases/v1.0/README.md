@@ -4,7 +4,9 @@ This directory records the provenance of the first public GitHub release of *Mec
 
 ## Public source
 
-The `paper/` directory is based on the author-identified source package prepared for arXiv and supplied on September 4, 2026. macOS `__MACOSX` metadata from the ZIP archive was excluded. The scientific section files were otherwise copied into the public repository without rewrite.
+The author-identified wrapper, bibliography, scientific section files, and `tmlr.sty` are copied from the source package prepared for arXiv and supplied on September 4, 2026. macOS `__MACOSX` metadata from the ZIP archive was excluded. The nine scientific section files are Git-blob-identical to the validated TMLR manuscript body.
+
+The `tmlr.bst` dependency from the preprint package is fetched at build time from the official `JmlrOrg/tmlr-style-file` repository at pinned commit `7bf90efe3a0debbba703c05c43f3ff7e4d4a2992`. Its Git blob SHA (`310ed3e74455269ad97d0b30639851af72cec965`) and SHA-256 (`694bb05ed86463c07ed93792fe2205d3e0f36eaac63e7d85a6ff85f3e85764aa`) match the file supplied in the preprint package.
 
 ## Review surface
 
@@ -12,7 +14,7 @@ The TMLR submission is maintained as an anonymous review package in a separate p
 
 ## Hashes
 
-[`SOURCE_SHA256SUMS.txt`](SOURCE_SHA256SUMS.txt) records SHA-256 hashes of the v1.0 manuscript source files, including the TMLR style files present in the preprint package.
+[`SOURCE_SHA256SUMS.txt`](SOURCE_SHA256SUMS.txt) records SHA-256 hashes of the v1.0 preprint-package source files, including the original TMLR style files. The bibliography-style hash is also enforced by the public build even though that third-party file is fetched rather than vendored.
 
 These hashes identify source files; a freshly compiled PDF need not be byte-identical across TeX installations because PDF metadata and toolchain behavior can vary.
 
