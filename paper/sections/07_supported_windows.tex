@@ -1,0 +1,102 @@
+\section{Comparing localization across contexts}
+\label{sec:context-comparison}
+
+Support restriction gives an exact comparison when one regime is contained in another. Cross-context studies are often harder: two prompt classes or intervention regimes may overlap only partially, or not at all at the input level. The relevant overlap for a mechanistic claim can nevertheless occur later in the network.
+
+\subsection{Input overlap can understate internal overlap}
+
+Fix an ambient source regime $C_\ast$. For $C,D\subseteq C_\ast$, the internal supports at cut $q$ are
+\[
+S_q^{\theta,C}=A_q^\theta(C),
+\qquad
+S_q^{\theta,D}=A_q^\theta(D).
+\]
+Their shared source inputs generate only
+\[
+S_q^{\theta,C\cap D}=A_q^\theta(C\cap D).
+\]
+There can be additional shared internal states because the prefix $A_q^\theta$ need not be injective.
+
+\begin{proposition}[Source intersection and internal overlap]
+\label{prop:source-overlap}
+For $C,D\subseteq C_\ast$ and every cut $q$,
+\begin{equation}
+S_q^{\theta,C\cap D}
+\subseteq
+S_q^{\theta,C}\cap S_q^{\theta,D}.
+\label{eq:source-overlap-inclusion}
+\end{equation}
+If $A_q^\theta|_{C_\ast}$ is injective, equality holds for every $C,D\subseteq C_\ast$. If it is not injective, there exist $C,D\subseteq C_\ast$ for which the inclusion is strict.
+\end{proposition}
+
+\begin{proof}
+The inclusion is the general relation $f(C\cap D)\subseteq f(C)\cap f(D)$ applied to $f=A_q^\theta$. If $A_q^\theta|_{C_\ast}$ is injective and $z$ lies in both images, then $z=A_q^\theta(x)=A_q^\theta(x')$ for some $x\in C$ and $x'\in D$. Injectivity gives $x=x'\in C\cap D$, so $z\in S_q^{\theta,C\cap D}$.
+
+If the restriction is noninjective, choose distinct $x,x'\in C_\ast$ with $A_q^\theta(x)=A_q^\theta(x')=z$. Taking $C=\{x\}$ and $D=\{x'\}$ gives $C\cap D=\varnothing$ while $z\in S_q^{\theta,C}\cap S_q^{\theta,D}$.
+\end{proof}
+
+Thus two disjoint prompt classes can still pass through a common internal state. Comparing explanations only on the image of their shared input labels can miss part of the domain on which the internal claims genuinely overlap.
+
+\subsection{Cross-support compatibility and union-level realization}
+
+A localization can work on two regimes separately and fail when the regimes are combined. The obstruction can be stated exactly. Let $S_1,S_2\subseteq X$ be analysis supports, let
+\[
+L:S_1\cup S_2\twoheadrightarrow U
+\]
+be a fixed access corestricted to its realized image on the union, and let
+\[
+\Phi:S_1\cup S_2\to Y_\Phi
+\]
+be a fixed phenomenon. For $i\in\{1,2\}$, corestrict $L|_{S_i}$ to $L(S_i)$ when evaluating realization on $S_i$.
+
+\begin{proposition}[Cross-support compatibility criterion]
+\label{prop:cross-support-compatibility}
+Assume $L|_{S_1}$ realizes $\Phi|_{S_1}$ and $L|_{S_2}$ realizes $\Phi|_{S_2}$. Then $L$ realizes $\Phi$ on $S_1\cup S_2$ if and only if
+\begin{equation}
+x\in S_1,\ y\in S_2,\ L(x)=L(y)
+\quad\Longrightarrow\quad
+\Phi(x)=\Phi(y).
+\label{eq:cross-support-compatibility}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+By local realization, every pair in $S_1\times S_1$ or $S_2\times S_2$ that lies in $\Ker L$ already lies in $\Ker\Phi$. The only access-fiber pairs on $S_1\cup S_2$ not covered by those two local conditions are cross-support pairs. Hence
+\[
+\Ker(L|_{S_1\cup S_2})
+\subseteq
+\Ker(\Phi|_{S_1\cup S_2})
+\]
+holds exactly when every $x\in S_1$ and $y\in S_2$ with $L(x)=L(y)$ also satisfy $\Phi(x)=\Phi(y)$. The claim follows from \cref{thm:realization-criterion}.
+\end{proof}
+
+The condition checks the new comparisons introduced by the union. Local realization handles pairs internal to each support; union-level realization adds the requirement that access collisions across the two supports remain phenomenon-consistent.
+
+\begin{example}[Local realization need not extend to a union]
+\label{ex:local-not-global}
+Let
+\[
+Q(a,b)=a,
+\qquad
+S_1=\{(0,0),(1,1)\},
+\qquad
+S_2=\{(0,0),(2,1)\},
+\]
+and take the access $L=\pi_{\{2\}}$. On $S_1$, the second coordinate determines $Q$: $b=0$ gives $Q=0$ and $b=1$ gives $Q=1$. On $S_2$, it again determines $Q$: $b=0$ gives $Q=0$ and $b=1$ gives $Q=2$. Thus $L$ realizes $\Phi=Q$ on each support, and trivially on their intersection.
+
+On the union,
+\[
+S_1\cup S_2
+=
+\{(0,0),(1,1),(2,1)\},
+\]
+the cross-support pair $(1,1)\in S_1$ and $(2,1)\in S_2$ has
+\[
+L(1,1)=L(2,1)=1,
+\qquad
+Q(1,1)=1\neq 2=Q(2,1).
+\]
+The compatibility condition \eqref{eq:cross-support-compatibility} fails, so $L$ does not realize $Q$ on $S_1\cup S_2$.
+\end{example}
+
+For cross-context mechanistic analysis, the two checks are therefore separate. Internal overlap should be computed at the cut where the localization is stated, since source overlap can be too small. A localization that is valid separately on two supports extends to their union exactly when the cross-support access collisions satisfy \eqref{eq:cross-support-compatibility}.
