@@ -10,3 +10,4 @@ __MACOSX/
 *.synctex.gz
 *.toc
 paper/build/
+paper/tmlr.bst
