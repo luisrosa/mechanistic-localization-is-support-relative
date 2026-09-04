@@ -1,0 +1,210 @@
+\section{The object of localization: a supported neural process}
+\label{sec:supported-process}
+
+A fixed parameter tensor does not determine a unique localization problem. The network specifies an ambient computation, but an analysis supplies a domain on which internal distinctions are compared. This section makes that separation explicit before introducing the realization criterion.
+
+\subsection{A continuous example}
+
+Consider a represented cut with state
+\[
+x=(x_1,x_2)\in\mathbb R^2
+\]
+and downstream behavior
+\begin{equation}
+\Phi(x_1,x_2)=x_1+x_2.
+\label{eq:continuous-preview}
+\end{equation}
+This is the computation of a single linear neuron with weights $(1,1)$. Take the two coordinate accesses
+\[
+L_1(x)=x_1,
+\qquad
+L_2(x)=x_2.
+\]
+When discussing receiver-family minimality below, we use these two coordinate accesses as the declared two-receiver decomposition. On the full ambient domain $\mathbb R^2$, neither coordinate alone determines $\Phi$: holding $x_1$ fixed while varying $x_2$ changes the output, and conversely. The joint access $(L_1,L_2)$ is required.
+
+Now restrict the same neuron to the diagonal
+\[
+D=\{(t,t):t\in\mathbb R\}.
+\]
+On $D$,
+\[
+\Phi(t,t)=2t=2L_1(t,t)=2L_2(t,t).
+\]
+Either coordinate alone now determines the behavior. On the vertical line
+\[
+V=\{(0,t):t\in\mathbb R\},
+\]
+only $L_2$ is needed. The weights, ambient state space, and formula \eqref{eq:continuous-preview} have not changed. The localization structure changes because the supported states satisfy different relations.
+
+A localization statement compares the distinctions preserved by an internal access with the distinctions that remain possible on the domain of analysis. The relevant object is therefore the ambient neural map together with the support on which it is interrogated.
+
+\subsection{Ambient neural computation}
+
+Fix a deterministic feed-forward computation with represented state cuts
+\[
+q=0,1,\ldots,L.
+\]
+At cut $q$, let $I_q$ be a finite coordinate index set. Coordinate $i\in I_q$ takes values in a nonempty set $A_{q,i}$, and
+\[
+X_q:=\prod_{i\in I_q}A_{q,i}.
+\]
+No finiteness assumption is placed on $A_{q,i}$.
+
+A fixed trained parameter setting is denoted by $\theta$. For $q<L$, the represented layer update is
+\[
+F_q^\theta:X_q\to X_{q+1}.
+\]
+Write
+\[
+A_0^\theta=\Id_{X_0},
+\qquad
+A_q^\theta=F_{q-1}^\theta\circ\cdots\circ F_0^\theta
+\quad(q>0)
+\]
+for the network prefix to cut $q$.
+
+Localization also requires a declared decomposition into candidate internal units. For every receiver $j\in I_{q+1}$, let
+\[
+F_{q,j}^\theta:=\pi_{q+1,j}F_q^\theta:X_q\to A_{q+1,j}.
+\]
+We assume that the implementation under study supplies an exposure map and continuation
+\begin{equation}
+X_q\xrightarrow{Q_{q,j}^\theta}Z_{q,j}
+\xrightarrow{G_{q,j}^\theta}A_{q+1,j},
+\qquad
+F_{q,j}^\theta=G_{q,j}^\theta Q_{q,j}^\theta.
+\label{eq:receiver-factorization}
+\end{equation}
+The exposure $Q_{q,j}^\theta$ is not an arbitrary factorization inserted after the fact. It names the state available at the receiver boundary chosen by the analysis. This interface/continuation grain is the represented receiver-process object used for architectural individuation in \citet{rosariofreytes2026architecture}. Here it provides the ambient access structure that will be restricted to an analysis support and tested against a declared phenomenon. A neuron-, head-, edge-, feature-, or mediator-level study can therefore induce different access maps even for the same trained network.
+
+\subsection{Reachable support}
+
+\begin{definition}[Source regime and reachable support]
+For any subset $C\subseteq X_0$, define its reachable support at cut $q$ by
+\begin{equation}
+S_q^{\theta,C}:=A_q^\theta(C)\subseteq X_q.
+\label{eq:reachable-support}
+\end{equation}
+A \emph{source regime} is a nonempty such subset. We allow $C=\varnothing$ only when forming intersections of regimes; then $S_q^{\theta,\varnothing}=\varnothing$.
+\end{definition}
+
+\begin{definition}[Analysis support at a cut]
+\label{def:analysis-support}
+Fix a cut $q$. An \emph{analysis support} is a nonempty subset
+\[
+S\subseteq X_q
+\]
+on which a localization claim is evaluated. It is \emph{source-generated} when $S=S_q^{\theta,C}$ for some source regime $C$. An intervention protocol may instead specify states directly at cut $q$, in which case the resulting analysis support need not be the prefix image of any source regime.
+\end{definition}
+
+At a fixed cut, an ambient receiver exposure, internal access, or phenomenon can be restricted directly to any analysis support $S$. The factorization and kernel criteria below depend only on that restricted domain. Statements that compare several cuts require a compatible family of supports; a source-generated family $\{S_q^{\theta,C}\}_{q=0}^L$ supplies such compatibility automatically through the network updates.
+
+The ambient map $F_q^\theta$ is defined on all of $X_q$. Source-generated supports satisfy
+\[
+F_q^\theta(S_q^{\theta,C})=S_{q+1}^{\theta,C}.
+\]
+We therefore restrict and corestrict the update to
+\[
+F_q^{\theta,C}:
+S_q^{\theta,C}\to S_{q+1}^{\theta,C},
+\qquad
+F_q^{\theta,C}(x):=F_q^\theta(x).
+\]
+Its receiver component is
+\[
+F_{q,j}^{\theta,C}
+:=\pi_{q+1,j}F_q^{\theta,C}
+=F_{q,j}^\theta|_{S_q^{\theta,C}}.
+\]
+For $q\le r$, write
+\begin{equation}
+F_{q\rightsquigarrow r}^{\theta,C}
+:=
+\begin{cases}
+\Id_{S_q^{\theta,C}}, & q=r,\\
+F_{r-1}^{\theta,C}\circ\cdots\circ F_q^{\theta,C}, & q<r,
+\end{cases}
+\label{eq:supported-continuation}
+\end{equation}
+for the supported continuation from cut $q$ to cut $r$.
+If $C\subseteq C'$, then
+\begin{equation}
+S_q^{\theta,C}\subseteq S_q^{\theta,C'}
+\qquad\text{for every }q.
+\label{eq:support-monotonicity-basic}
+\end{equation}
+The inclusion is elementary, but it is the source of the later monotonicity theorem: a smaller regime creates fewer pairs of internal states that an access must distinguish.
+
+For receiver $j$, define the realized image
+\[
+Z_{q,j}^{\theta,C}:=
+Q_{q,j}^\theta(S_q^{\theta,C})
+\]
+and corestrict the exposure to
+\[
+Q_{q,j}^{\theta,C}:
+S_q^{\theta,C}\twoheadrightarrow Z_{q,j}^{\theta,C}.
+\]
+Restricting $G_{q,j}^\theta$ to this realized image, define
+\[
+G_{q,j}^{\theta,C}
+:=
+G_{q,j}^\theta\big|_{Z_{q,j}^{\theta,C}}
+:
+Z_{q,j}^{\theta,C}\to A_{q+1,j}.
+\]
+Then
+\[
+F_{q,j}^{\theta,C}
+=
+G_{q,j}^{\theta,C}Q_{q,j}^{\theta,C}.
+\]
+
+\begin{definition}[Supported neural process]
+For fixed $\theta$ and $C$, the \emph{supported neural process} is
+\begin{equation}
+\Proc_{\mathrm{NN}}(\theta,C)
+:=
+\left(
+\{S_q^{\theta,C}\}_{q=0}^L,
+\{Q_{q,j}^{\theta,C}\}_{q<L,\,j\in I_{q+1}},
+\{G_{q,j}^{\theta,C}\}_{q<L,\,j\in I_{q+1}}
+\right).
+\label{eq:supported-process}
+\end{equation}
+\end{definition}
+
+The weights determine the ambient maps. The regime determines which parts of their domains are realized. The supported process retains both pieces explicitly, so changing the regime changes the domain of the internal maps without changing their ambient definitions.
+
+\subsection{Receiver fibers}
+
+For a map $f:S\to T$, write
+\[
+\Ker f
+:=
+\{(x,x')\in S\times S:f(x)=f(x')\}.
+\]
+This is the equivalence relation induced by the fibers of $f$. For an internal access, the fibers are the distinctions it removes: two supported states in the same fiber are presented identically downstream of that access.
+
+At receiver $(q,j)$ define
+\begin{equation}
+D_{q,j}^{\theta,C}:=
+\Ker Q_{q,j}^{\theta,C}.
+\label{eq:receiver-kernel}
+\end{equation}
+Because $Q_{q,j}^{\theta,C}$ is a restricted map, its kernel is a relation on the supported domain $S_q^{\theta,C}\times S_q^{\theta,C}$; changing the support changes the state pairs on which the relation is defined even when the ambient exposure $Q_{q,j}^{\theta}$ is unchanged.
+
+The quotient
+\[
+S_q^{\theta,C}/D_{q,j}^{\theta,C}
+\]
+is isomorphic to the realized receiver image $Z_{q,j}^{\theta,C}$. The quotient notation will be useful because localization depends on which states an access identifies, not on a preferred coordinate system for its codomain.
+
+From \eqref{eq:receiver-factorization},
+\begin{equation}
+\Ker Q_{q,j}^{\theta,C}
+\subseteq
+\Ker F_{q,j}^{\theta,C}.
+\label{eq:receiver-no-recovery}
+\end{equation}
+A distinction absent from the exposed receiver state cannot affect that receiver's immediate output through the fixed continuation. The rest of the paper asks which of these retained distinctions are needed for a declared phenomenon.
