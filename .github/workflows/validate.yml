@@ -15,6 +15,16 @@ jobs:
           python-version: '3.12'
       - name: Run finite regression checks
         run: make check
+      - name: Check GitHub README math syntax
+        run: |
+          if grep -F '$$' README.md; then
+            echo 'README display math must use fenced math blocks, not $$ delimiters.'
+            exit 1
+          fi
+          if grep -F '\operatorname' README.md; then
+            echo 'README uses \operatorname, which GitHub math rendering rejects.'
+            exit 1
+          fi
 
   latex-build:
     runs-on: ubuntu-latest
