@@ -1,0 +1,153 @@
+\section{Distributed and minimal localization}
+\label{sec:distributed}
+
+A phenomenon need not be available at any single receiver. Once realization is phrased as a factorization problem, the same criterion applies to collections of receivers without introducing an attribution score or a new notion of sufficiency.
+
+For $K\subseteq I_{q+1}$, define the joint exposure
+\[
+Q_{q,K}^{\theta,C}
+:=
+\langle Q_{q,j}^{\theta,C}\rangle_{j\in K}
+\]
+corestricted to its realized image. For $K=\varnothing$, take the unique map to a singleton. Two supported states have the same joint exposure exactly when every receiver in $K$ sees them as the same state, so
+\begin{equation}
+\Ker Q_{q,K}^{\theta,C}
+=
+\bigcap_{j\in K}D_{q,j}^{\theta,C},
+\label{eq:joint-kernel}
+\end{equation}
+where the empty intersection is the universal relation on $S_q^{\theta,C}$.
+
+Combining \eqref{eq:joint-kernel} with \cref{thm:realization-criterion}, the receiver family $K$ realizes $\Phi$ exactly when
+\begin{equation}
+\bigcap_{j\in K}D_{q,j}^{\theta,C}
+\subseteq
+D_{\Phi,q}^{\theta,C}.
+\label{eq:family-realization}
+\end{equation}
+This expression makes the role of a distributed family explicit. Each receiver removes some distinctions. The family succeeds when their joint state separates every pair that the phenomenon needs separated.
+
+The joint next-layer exposure factors the complete update. Let
+\[
+Q_q^{\theta,C}:=Q_{q,I_{q+1}}^{\theta,C}.
+\]
+On its realized joint image, the receiver continuations assemble into a map $G_q^{\theta,C}$ with
+\begin{equation}
+F_q^{\theta,C}=G_q^{\theta,C}Q_q^{\theta,C}.
+\label{eq:joint-factorization}
+\end{equation}
+If $q<r$ and $\Phi_q^{\theta,C}$ is the pullback of a profile at stage $r$, then
+\[
+\Phi_q^{\theta,C}
+=
+\Phi_r^{\theta,C}
+F_{q+1\rightsquigarrow r}^{\theta,C}
+G_q^{\theta,C}Q_q^{\theta,C}.
+\]
+Hence
+\begin{equation}
+\Ker Q_q^{\theta,C}
+\subseteq
+\Ker\Phi_q^{\theta,C}.
+\label{eq:full-joint-realization}
+\end{equation}
+The declared next-layer receiver organization jointly retains every distinction required for a later phenomenon, although no single receiver need do so.
+
+\begin{definition}[Distributed receiver realization]
+A phenomenon is \emph{distributed at cut $q$ relative to the declared receiver decomposition} if no individual receiver realizes it but some family $K$ with $|K|>1$ satisfies \eqref{eq:family-realization}.
+\end{definition}
+
+For example, on $S=\{0,1\}^2$ with
+\[
+\Phi(a,b)=a\oplus b,
+\qquad
+Q_1(a,b)=a,
+\qquad
+Q_2(a,b)=b,
+\]
+neither receiver realizes parity individually, while the joint exposure $(a,b)$ does.
+
+\subsection{Realizing families and localization order}
+
+Define the collection of realizing receiver families by
+\begin{equation}
+\Rcal_{\Phi,q}^{\theta,C}
+:=
+\left\{
+K\subseteq I_{q+1}:
+\bigcap_{j\in K}D_{q,j}^{\theta,C}
+\subseteq
+D_{\Phi,q}^{\theta,C}
+\right\}.
+\label{eq:realizing-families}
+\end{equation}
+It is upward closed: once $K$ realizes the phenomenon, adding receivers can only refine the joint fibers.
+
+The minimum receiver count is
+\begin{equation}
+d_{\Phi,q}^{\theta,C}
+:=
+\begin{cases}
+\min\{|K|:K\in\Rcal_{\Phi,q}^{\theta,C}\},
+&\Rcal_{\Phi,q}^{\theta,C}\neq\varnothing,\\[0.3em]
++\infty,&\text{otherwise.}
+\end{cases}
+\label{eq:realization-order}
+\end{equation}
+For a nonconstant downstream profile with $q<r$, \eqref{eq:full-joint-realization} gives
+\[
+1\le d_{\Phi,q}^{\theta,C}\le |I_{q+1}|.
+\]
+A constant profile has order $0$.
+
+The same condition has an equivalent pair-cover form. Define the phenomenon-distinguished pairs
+\[
+P_{\Phi,q}^{\theta,C}
+:=
+\left\{
+(x,x')\in (S_q^{\theta,C})^2:
+\Phi_q^{\theta,C}(x)\neq\Phi_q^{\theta,C}(x')
+\right\},
+\]
+and for each receiver $j$ let
+\[
+E_{q,j}^{\theta,C}
+:=
+\left\{
+(x,x')\in P_{\Phi,q}^{\theta,C}:
+Q_{q,j}^{\theta,C}(x)\neq Q_{q,j}^{\theta,C}(x')
+\right\}.
+\]
+
+\begin{proposition}[Pair-cover characterization]
+\label{prop:pair-cover}
+A receiver family $K\subseteq I_{q+1}$ realizes $\Phi$ if and only if
+\begin{equation}
+P_{\Phi,q}^{\theta,C}
+\subseteq
+\bigcup_{j\in K}E_{q,j}^{\theta,C}.
+\label{eq:pair-cover}
+\end{equation}
+Consequently,
+\begin{equation}
+d_{\Phi,q}^{\theta,C}
+=
+\min\left\{
+|K|:
+K\subseteq I_{q+1},\ 
+P_{\Phi,q}^{\theta,C}
+\subseteq
+\bigcup_{j\in K}E_{q,j}^{\theta,C}
+\right\},
+\label{eq:pair-cover-order}
+\end{equation}
+where the minimum is $+\infty$ if no such $K$ exists. The empty family realizes exactly when $\Phi_q^{\theta,C}$ is constant.
+\end{proposition}
+
+\begin{proof}
+By \eqref{eq:family-realization}, $K$ fails to realize $\Phi$ exactly when there is a pair $(x,x')$ distinguished by $\Phi_q^{\theta,C}$ that lies in every receiver kernel $D_{q,j}^{\theta,C}$ for $j\in K$. Equivalently, $K$ realizes $\Phi$ exactly when every pair in $P_{\Phi,q}^{\theta,C}$ is separated by at least one receiver in $K$, which is \eqref{eq:pair-cover}. The formula for $d_{\Phi,q}^{\theta,C}$ follows from \eqref{eq:realization-order}.
+\end{proof}
+
+Thus the localization order is the minimum number of declared receivers needed to cover all state-pair distinctions demanded by the phenomenon.
+
+The count $d_{\Phi,q}^{\theta,C}$ is useful but incomplete. A circuit claim normally identifies components, not only their number. We therefore also care about the inclusion-minimal elements of $\Rcal_{\Phi,q}^{\theta,C}$. The next section shows that both the minimum count and the identity of these minimal families depend on support.

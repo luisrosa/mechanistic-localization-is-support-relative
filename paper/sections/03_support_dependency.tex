@@ -1,0 +1,100 @@
+\section{Support-relative dependency}
+\label{sec:support-dependency}
+
+The continuous example in \cref{sec:supported-process} already shows that coordinate dependence is not determined by an ambient formula alone. This section records the exact criterion for coordinate sufficiency and one consequence for circuit-style necessity tests.
+
+For $K\subseteq I_q$, let
+\[
+X_{q,K}:=\prod_{i\in K}A_{q,i}
+\]
+and let $\pi_K:X_q\to X_{q,K}$ be coordinate projection. For $K=\varnothing$, take $X_{q,\varnothing}$ to be a singleton.
+
+\begin{definition}[Sufficient coordinate set]
+A subset $K\subseteq I_q$ is \emph{sufficient for receiver $j$ on $C$} if there exists
+\[
+\widehat Q_{q,j,K}^{\theta,C}:
+\pi_K(S_q^{\theta,C})\to Z_{q,j}^{\theta,C}
+\]
+such that
+\begin{equation}
+Q_{q,j}^{\theta,C}
+=
+\widehat Q_{q,j,K}^{\theta,C}
+\,\pi_K|_{S_q^{\theta,C}}.
+\label{eq:coordinate-sufficiency}
+\end{equation}
+\end{definition}
+
+The definition asks whether the receiver state can be reconstructed from the coordinates in $K$ on the supported domain. It does not ask whether the ambient expression for $Q_{q,j}^\theta$ contains those coordinates syntactically. Relations that hold only on the support can make one coordinate determine another.
+
+\begin{proposition}[Coordinate sufficiency criterion]
+\label{prop:coordinate-sufficiency}
+A coordinate set $K$ is sufficient for receiver $j$ on $C$ if and only if
+\begin{equation}
+\Ker(\pi_K|_{S_q^{\theta,C}})
+\subseteq
+\Ker Q_{q,j}^{\theta,C}.
+\label{eq:coordinate-kernel-criterion}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+If \eqref{eq:coordinate-sufficiency} holds, equal projected values produce equal receiver values. Conversely, suppose \eqref{eq:coordinate-kernel-criterion} holds. Define
+\[
+\widehat Q_{q,j,K}^{\theta,C}(\pi_K(x))
+:=Q_{q,j}^\theta(x).
+\]
+The kernel inclusion makes this independent of the representative $x\in S_q^{\theta,C}$.
+\end{proof}
+
+Because $I_q$ is finite and $I_q$ itself is sufficient, every receiver has at least one inclusion-minimal sufficient coordinate set. Write
+\[
+\MinSupp_{q,j}(\theta,C)
+\]
+for the collection of these minimal sets.
+
+Minimality inherits the domain dependence of sufficiency. On the diagonal in the continuous example, either coordinate is a minimal sufficient access for the linear readout even though both are required on $\mathbb R^2$. Restriction can also remove a dependency entirely. For
+\[
+Q(a,b)=a\oplus b
+\]
+on $\{0,1\}^2$, both coordinates are needed on the full square, while $Q$ is constant on the diagonal $\{(0,0),(1,1)\}$. The empty coordinate set is therefore sufficient after restriction.
+
+More generally, sufficiency is monotone under restriction. If $S\subseteq S'\subseteq X_q$ and $K$ is sufficient for a fixed map $Q$ on $S'$, then $K$ is sufficient on $S$. The same kernel inclusion is simply being tested on fewer pairs. Minimality need not be preserved, because a proper subset of $K$ may become sufficient on the smaller domain.
+
+\subsection{One-coordinate operativity and necessity}
+
+A common local test varies one component while holding the others fixed and asks whether a downstream quantity changes. On a restricted support, such a comparison is available only when both states belong to the support.
+
+\begin{definition}[Direct supported operativity]
+For coordinate $i\in I_q$ and receiver $j$, write
+\[
+i\to_{\theta,C}j
+\]
+when there exist $x,x'\in S_q^{\theta,C}$ such that
+\[
+x_k=x'_k\quad\text{for all }k\neq i,
+\qquad
+Q_{q,j}^\theta(x)\neq Q_{q,j}^\theta(x').
+\]
+\end{definition}
+
+\begin{proposition}[Direct operativity and minimal sufficient supports]
+\label{prop:direct-necessity}
+For fixed $(q,j,\theta,C)$ and $i\in I_q$,
+\begin{equation}
+i\to_{\theta,C}j
+\quad\Longleftrightarrow\quad
+i\in K
+\text{ for every }
+K\in\MinSupp_{q,j}(\theta,C).
+\label{eq:direct-necessity}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Suppose $i\to_{\theta,C}j$, witnessed by $x,x'$. Any coordinate set $K$ omitting $i$ gives $\pi_K(x)=\pi_K(x')$ while the receiver values differ, so $K$ is not sufficient. Every minimal sufficient set must therefore contain $i$.
+
+Conversely, suppose no direct witness exists. Whenever two supported states agree on all coordinates except possibly $i$, their receiver values agree. Hence $I_q\setminus\{i\}$ is sufficient by \cref{prop:coordinate-sufficiency}. Since $I_q$ is finite, it contains an inclusion-minimal sufficient subset omitting $i$.
+\end{proof}
+
+The proposition separates several circuit claims that are easy to conflate. A one-coordinate witness characterizes membership in every inclusion-minimal sufficient coordinate set. Membership in at least one minimal set, attribution thresholds, and interventions performed on a larger counterfactual domain are different criteria.

@@ -1,0 +1,94 @@
+\section{Phenomenon-relative realization}
+\label{sec:phenomenon-realization}
+
+Coordinate sufficiency concerns what is needed to reproduce a receiver state. Mechanistic localization usually asks a different question: which internal state is sufficient for a behavior or other phenomenon of interest? An access can preserve many distinctions that the phenomenon ignores. The phenomenon must therefore be part of the localization claim.
+
+Fix a regime $C$ and a stage $r$. A \emph{phenomenon profile} is a map
+\[
+\Phi_r^{\theta,C}:S_r^{\theta,C}\to Y_\Phi.
+\]
+The codomain may represent a scalar output, a vector of observables, a class label, or a tuple of tests. For $q\le r$, pull the profile back through the supported continuation:
+\begin{equation}
+\Phi_q^{\theta,C}
+:=
+\Phi_r^{\theta,C}
+F_{q\rightsquigarrow r}^{\theta,C}.
+\label{eq:phenomenon-pullback}
+\end{equation}
+The map $\Phi_q^{\theta,C}$ records which distinctions at cut $q$ matter for the declared downstream profile.
+
+Its fibers define the corresponding phenomenon content. Let
+\[
+D_{\Phi,q}^{\theta,C}:=
+\Ker\Phi_q^{\theta,C},
+\qquad
+\Ccal_{\Phi,q}^{\theta,C}
+:=S_q^{\theta,C}/D_{\Phi,q}^{\theta,C}.
+\]
+Two supported states lie in the same class exactly when the declared phenomenon treats them identically. The quotient is therefore the coarsest partition of the supported state that still determines the phenomenon. It does not localize that content: it is defined using the whole state at cut $q$.
+
+Now let
+\[
+L:S_q^{\theta,C}\twoheadrightarrow U
+\]
+be a declared internal access, corestricted to its realized image. Coordinate projections, individual receiver exposures, joint receiver states, and feature-level maps are all examples. Different choices of $L$ ask different localization questions even when the network, support, and phenomenon are fixed.
+
+\begin{definition}[Exact interface realization]
+The access $L$ \emph{realizes $\Phi$ on $C$} if there exists a map
+\[
+\widehat\Phi_L:U\to Y_\Phi
+\]
+such that
+\begin{equation}
+\Phi_q^{\theta,C}=\widehat\Phi_L L.
+\label{eq:realization-definition}
+\end{equation}
+\end{definition}
+
+The definition says that once the accessed state is known, no additional distinction in the supported cut state is needed to determine the phenomenon. The criterion can be stated entirely in terms of fibers.
+
+This is the standard factorization-through-fibers criterion specialized to a phenomenon and internal access on a common supported domain. The same criterion is used for receiver-interface factorization in \citet{rosariofreytes2026architecture}: a map $R$ factors through a surjective interface $Q$ exactly when $\Ker Q\subseteq\Ker R$.
+
+\begin{theorem}[Interface realization criterion]
+\label{thm:realization-criterion}
+An access
+\[
+L:S_q^{\theta,C}\twoheadrightarrow U
+\]
+realizes $\Phi$ if and only if
+\begin{equation}
+\boxed{
+\Ker L
+\subseteq
+\Ker\Phi_q^{\theta,C}.
+}
+\label{eq:realization-kernel}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+If \eqref{eq:realization-definition} holds, two states in the same fiber of $L$ have the same phenomenon value. Hence $\Ker L\subseteq\Ker\Phi_q^{\theta,C}$. Conversely, suppose the kernel inclusion holds. Define
+\[
+\widehat\Phi_L(L(x)):=\Phi_q^{\theta,C}(x).
+\]
+The inclusion makes this independent of the representative $x$, and surjectivity of $L$ defines $\widehat\Phi_L$ on all of $U$.
+\end{proof}
+
+The proof uses only the common domain of $L$ and $\Phi$. Hence the same criterion applies at any fixed-cut analysis support $S\subseteq X_q$ from \cref{def:analysis-support}: for maps $L:S\twoheadrightarrow U$ and $\Phi:S\to Y_\Phi$, exact realization is equivalent to $\Ker L\subseteq\Ker\Phi$.
+
+On a fixed support, the criterion settles exact interface realization. The support-relative problem begins when the same ambient access and phenomenon are restricted to different domains. The next sections construct the resulting realizing families and study their minimality, monotonicity under restriction, and compatibility across nonnested supports.
+
+The access $L$ partitions the supported state according to what the proposed internal interface preserves. The phenomenon partitions the same state according to what must remain distinguishable. Realization holds exactly when the access never collapses a distinction that the phenomenon requires.
+
+For an implemented receiver $j$ this becomes
+\begin{equation}
+Q_{q,j}^{\theta,C}\text{ realizes }\Phi
+\quad\Longleftrightarrow\quad
+D_{q,j}^{\theta,C}
+\subseteq
+D_{\Phi,q}^{\theta,C}.
+\label{eq:receiver-realization}
+\end{equation}
+A phenomenon can therefore be determined by the whole layer state while failing to factor through the state exposed to a selected receiver.
+
+This is an exact interface-sufficiency statement. It does not by itself establish causal necessity, a unique circuit, or a human-readable explanation. Those claims require additional intervention or representation structure. Here the factorization criterion isolates the lower-level condition that the proposed access retain the distinctions needed for the declared phenomenon.

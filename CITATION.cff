@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "Please cite the manuscript described in preferred-citation."
+title: "Mechanistic Localization Is Support-Relative source repository"
+type: software
+authors:
+  - family-names: "Rosario Freytes"
+    given-names: "Luis F."
+    affiliation: "University of Michigan, Ann Arbor"
+version: "1.0"
+date-released: "2026-09-04"
+license: CC-BY-4.0
+repository-code: "https://github.com/luisrosa/mechanistic-localization-is-support-relative"
+abstract: >-
+  Source, validation code, and provenance materials for a theory of
+  mechanistic localization in which the supported internal-state domain is an
+  explicit argument of the localization claim. Exact realization through a
+  declared access is characterized by kernel inclusion, with consequences for
+  distributed realization, support restriction, localization order, and
+  cross-context compatibility.
+keywords:
+  - mechanistic interpretability
+  - neural networks
+  - localization
+  - support
+  - circuits
+  - representation
+  - causal abstraction
+preferred-citation:
+  type: article
+  title: "Mechanistic Localization Is Support-Relative"
+  authors:
+    - family-names: "Rosario Freytes"
+      given-names: "Luis F."
+  year: 2026
+  month: 9
+  notes: "Preprint; submitted to Transactions on Machine Learning Research"
