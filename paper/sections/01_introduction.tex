@@ -1,0 +1,36 @@
+\section{Introduction}
+
+A mechanistic-localization claim is never determined by the network parameters alone. A study also fixes a behavior to explain, a collection of natural or counterfactual states on which the claim is evaluated, and a decomposition of the network into candidate internal accesses. Recent work makes the dependence on these choices visible through ablation-sensitive faithfulness, input-conditioned circuit variation, explicit verification domains, and intervention-induced hidden states \citep{miller2024faithfulness,bayat2026many,hadad2026formal,makelov2024subspace,grant2026divergent}.
+
+These results are usually discussed as problems of faithfulness, identifiability, minimality, transfer, or intervention design. They also expose a common mathematical dependence. A trained network defines maps on ambient state spaces. A localization analysis evaluates those maps only on a selected set of states. Changing that set changes which state pairs can be compared and which relations among coordinates hold on the domain. An internal access that is insufficient on the ambient state space can therefore become sufficient after restriction even though the parameters and ambient maps are unchanged.
+
+We take the evaluation domain to be an argument of the localization claim. Fix a deterministic network with parameter setting $\theta$. A source regime $C\subseteq X_0$ generates a reachable support
+\[
+S_q^{\theta,C}=A_q^\theta(C)
+\]
+at cut $q$, where $A_q^\theta$ is the network prefix. Intervention protocols can instead supply a set of states directly at an internal cut. The theory below distinguishes these source-generated supports from general analysis supports. When one source regime is propagated through all represented cuts, the resulting restricted states, receiver exposures, and continuations form a \emph{supported neural process}.
+
+The support determines which internal distinctions are available for comparison, but it does not determine which of them matter for the behavior being explained. We therefore also fix a phenomenon profile
+\[
+\Phi:S\to Y_\Phi
+\]
+on the analysis support $S$ and a declared internal access
+\[
+L:S\twoheadrightarrow U.
+\]
+Exact realization means that the phenomenon can be recovered from the accessed state:
+\begin{equation}
+\Phi=hL
+\quad\Longleftrightarrow\quad
+\Ker L\subseteq\Ker\Phi.
+\label{eq:intro-realization}
+\end{equation}
+The two kernels are partitions of the same supported domain. The access may identify states only when the declared phenomenon identifies them as well.
+
+Once localization is stated on this object, several forms of context dependence follow from ordinary restriction. If $S\subseteq S'$, an access that realizes the phenomenon on $S'$ also realizes its restriction to $S$. For receiver families, the feasible localization set can therefore grow as support narrows. The minimum receiver count can decrease, a different family can become minimal, and several minimal realizations can appear where only one existed on the larger domain. A dependency can also disappear when the phenomenon becomes constant on the restricted support.
+
+Nonnested contexts expose two further distinctions. Input overlap need not equal internal-state overlap because a noninjective network prefix can map different source inputs to the same hidden state. Conversely, a localization that works separately on two supports need not work on their union: the union introduces cross-support state pairs that neither local claim had to distinguish. Both effects concern the domain on which the mechanistic claim is stated, not a change in the ambient network.
+
+The nearby literature varies several of these ingredients together. \Cref{sec:related-work} separates those axes; the formal development then varies support while holding the network, declared phenomenon, and internal access family fixed.
+
+The analysis is exact and set-theoretic. Represented cuts have finitely many declared coordinates, but coordinate values may be arbitrary, including ordinary real-valued activations. We do not assume linearity, differentiability, a finite activation alphabet, or a probability distribution on the support. The access decomposition is declared by the analysis. Causal necessity, algorithmic abstraction, and equivalence between different presentation languages require additional structure beyond the exact interface-realization criterion studied here.
